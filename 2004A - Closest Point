@@ -1,0 +1,46 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+
+string helper(vector<int>& testCase, int n) {
+    sort(testCase.begin(), testCase.end());
+    
+    if (testCase[0] + 1 >= testCase[1]) {
+        return "NO";
+    }
+    
+    int pt = testCase[1] - 1;
+    
+    for (int i = 1; i < n - 1; i++) {
+        if (abs(pt - testCase[i]) > min(abs(testCase[i] - testCase[i - 1]), abs(testCase[i] - testCase[i + 1]))) {
+            return "NO";
+        }
+    }
+    
+    if (abs(testCase[n - 1] - testCase[n - 2]) < abs(pt - testCase[n - 1])) {
+        return "NO";
+    }
+    
+    return "YES";
+}
+
+int main() {
+    int testCases;
+    cin >> testCases;
+    
+    for (int i = 0; i < testCases; i++) {
+        int n;
+        cin >> n;
+        vector<int> testCase(n);
+        
+        for (int j = 0; j < n; j++) {
+            cin >> testCase[j];
+        }
+        
+        cout << helper(testCase, n) << endl;
+    }
+    
+    return 0;
+}
